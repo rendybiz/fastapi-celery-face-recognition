@@ -12,6 +12,7 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
+RUN apt update
 RUN apt install ffmpeg libsm6 libxext6  -y
 # copy project
 COPY . .
