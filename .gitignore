@@ -3,4 +3,6 @@ __pycache
 .DS_Store
 *.log
 .vscode
-project/react-page/node_modules
+project/static/face-results/*
+project/logs/*.log
+*.log
