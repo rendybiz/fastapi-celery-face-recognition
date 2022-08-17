@@ -39,3 +39,7 @@ def get_validate():
     task = face_recognition_task.delay({"data": "data"})
     return JSONResponse({"task_id": task.id, "response": "OK"})
 
+@app.get("/redis_key_clean_up/")
+def get_redis_key_clean_up():
+    task = redis_key_clean_up.delay({"data": "data"})
+    return JSONResponse({"task_id": task.id, "response": "OK"})

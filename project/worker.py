@@ -106,4 +106,16 @@ def face_recognition_task(request):
     return response
 
 
-
+@celery.task(name="redis_key_clean_up")
+def redis_key_clean_up(request):
+    for filebase_name in os.listdir(basepath):
+        if os.path.isfile(os.path.join(basepath, filebase_name)):
+            file_name, file_extension = os.path.splitext(filebase_name)
+            print("file name "+ file_name + " " +file_extension)
+            
+            """ Check the availability on redis"""
+            
+            rds_key = redis_prefix+filebase_name
+            fn_redis = redis_con.get(rds_key)
+            if(fn_redis):
+                redis_con.delete(rds_key)
