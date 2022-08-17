@@ -7,8 +7,5 @@ pytest==6.2.4
 redis==3.5.3
 requests==2.25.1
 uvicorn==0.13.4
-CubeJsClient==0.1.1
-pandas==1.4.2
-pandas-gbq==0.17.6
 openpyxl==3.0.10
 opencv-python

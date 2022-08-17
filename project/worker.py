@@ -3,7 +3,6 @@ import  os
 import  time
 from    celery.utils.log import get_task_logger
 from    celery import Celery
-from    any_modules import compare
 import  redis
 import  cv2
 
@@ -22,7 +21,7 @@ redis_prefix= "img_"
 
 convert_to_gbq_enabled = True
 basepath       = 'static/peoples/'
-base_face_path = 'static/face-results/'
+baseface_path = 'static/face-results/'
 
 @celery.task(name="create_task")
 def create_task(task_type):
@@ -48,10 +47,6 @@ def face_recognition_task(request):
                     else :
                         print("fn redis exist", fn_redis)
                         continue
-                        
-
-                    # setfoo = r.set('foo', 'bar')
-                    # foo = r.get('foo')
                 
                     image_path = basepath+filebase_name
                     casc_path  = "static/cascade_face.xml"
@@ -88,11 +83,12 @@ def face_recognition_task(request):
                     for (x, y, w, h) in faces:
                         # cv2.rectangle(image, (x, y), (x+w, y+h), (255, 255, 255), 2)
                         faces = image[y:y + h, x:x + w]
-                        target_file = base_face_path + file_name+"-face"+str(face_n)+file_extension
+                        target_file = baseface_path + file_name+"-face"+str(face_n)+file_extension
                         print("target_file : "+target_file)
                         cv2.imwrite(target_file, faces)
                         face_n+=1
                     
+                    redis_con.set(rds_key, 2)
                     """ Sleep 2 seconds as pretending that processing data take a longer process"""
                     time.sleep(2) # <--- comment it when unnecessary
     except OSError as err:
@@ -106,8 +102,8 @@ def face_recognition_task(request):
     return response
 
 
-@celery.task(name="redis_key_clean_up")
-def redis_key_clean_up(request):
+@celery.task(name="redis_key_clean_up_task")
+def redis_key_clean_up_task(request):
     for filebase_name in os.listdir(basepath):
         if os.path.isfile(os.path.join(basepath, filebase_name)):
             file_name, file_extension = os.path.splitext(filebase_name)

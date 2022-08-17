@@ -4,7 +4,7 @@ from fastapi.responses      import JSONResponse
 from fastapi.staticfiles    import StaticFiles
 from fastapi.templating     import Jinja2Templates
 from fastapi.middleware.cors    import CORSMiddleware
-from worker import face_recognition_task, redis_key_clean_up
+from worker import face_recognition_task, redis_key_clean_up_task
 
 import logging
 import sys
@@ -19,8 +19,7 @@ logging.basicConfig(
 )
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="react-page/build/static"), name="static")
-templates = Jinja2Templates(directory="react-page/build/")
+# app.mount("/static", StaticFiles(directory="project/static"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
@@ -40,6 +39,6 @@ def get_validate():
     return JSONResponse({"task_id": task.id, "response": "OK"})
 
 @app.get("/redis_key_clean_up/")
-def get_redis_key_clean_up():
-    task = redis_key_clean_up.delay({"data": "data"})
+def get_redis_key_clean_up_task():
+    task = redis_key_clean_up_task.delay({"data": "data"})
     return JSONResponse({"task_id": task.id, "response": "OK"})
