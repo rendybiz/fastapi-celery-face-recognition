@@ -9,3 +9,5 @@ requests==2.25.1
 uvicorn==0.13.4
 openpyxl==3.0.10
 opencv-python
+pandas==1.4.2
+pandas-gbq==0.17.6
