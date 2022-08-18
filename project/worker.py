@@ -115,3 +115,4 @@ def redis_key_clean_up_task(request):
             fn_redis = redis_con.get(rds_key)
             if(fn_redis):
                 redis_con.delete(rds_key)
+    return True
