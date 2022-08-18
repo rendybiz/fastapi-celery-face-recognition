@@ -5,17 +5,18 @@ This Project is based on requirements v.0.1.
 The requirements are put into single file in requirements.v.0.1.md
 
 ## What inside?
-Python 3
-celery 4.4.7
-fastapi 0.64.0
-flower 0.9.7
-pytest 6.2.4
-redis 3.5.3
-uvicorn 0.13.4
-openpyxl 3.0.10
-opencv-python
-pandas 1.4.2
-pandas-gbq 0.17.6
+
+* Python 3
+* celery 4.4.7
+* fastapi 0.64.0
+* flower 0.9.7
+* pytest 6.2.4
+* redis 3.5.3
+* uvicorn 0.13.4
+* openpyxl 3.0.10
+* opencv-python
+* pandas 1.4.2
+* pandas-gbq 0.17.6
 
 ## Prerequisites
 This docker was build under Ubuntu 20.04 focal OS.
